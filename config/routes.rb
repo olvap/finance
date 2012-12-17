@@ -11,6 +11,10 @@ Finance::Application.routes.draw do
     resources :accounts
   end
 
-  resources :transactions
+  resources :accounts do
+    resources :transactions
+    resources :incomes
+    resources :expences
+  end
 
 end

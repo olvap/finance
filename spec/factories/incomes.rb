@@ -2,5 +2,6 @@
 
 FactoryGirl.define do
   factory :income do
+    amount 1.5
   end
 end

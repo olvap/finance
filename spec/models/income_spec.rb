@@ -13,4 +13,11 @@ describe Income do
     @account.amount.should eq(cash + 100.01)
   end
 
+  it "should modify the amount of the account correctly when update the transaction" do
+    cash = @account.amount
+    @income = FactoryGirl.create :income, account: @account, amount: 100.01
+    @income.amount = 200
+    @income.save
+    @account.amount.should eq(cash + 200)
+  end
 end

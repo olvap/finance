@@ -6,7 +6,6 @@
     %th Concept
     %th Category
     %th Date
-    %th User
     %th
     %th
     %th
@@ -17,11 +16,11 @@
       %td= transaction.concept
       %td= transaction.category
       %td= transaction.date
-      %td= transaction.user
-      %td= link_to 'Show', transaction
-      %td= link_to 'Edit', edit_transaction_path(transaction)
-      %td= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }
+      -#%td= link_to 'Show', account_transaction_path(@account, @transaction)
+      %td= link_to 'Edit', edit_account_transaction_path(@account, transaction)
+      -#%td= link_to 'Destroy', account_transaction_path(@account, @transaction), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Transaction', new_transaction_path
+= link_to 'New Income', new_account_income_path(@account)
+= link_to 'New Expence', new_account_expence_path(@account)

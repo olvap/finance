@@ -17,6 +17,20 @@ require 'spec_helper'
 # is no simpler way to get a handle on the object needed for the example.
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
+# This should return the minimal set of attributes required to create a valid
+# Transaction. As you add validations to Transaction, be sure to
+# update the return value of this method accordingly.
+
+def valid_attributes
+  { :amount => "1.5" }
+end
+
+# This should return the minimal set of values that should be in the session
+# in order to pass any filters (e.g. authentication) defined in
+# TransactionsController. Be sure to keep this updated too.
+def valid_session
+  {}
+end
 
 describe TransactionsController do
 #  include Devise::TestHelpers
@@ -24,129 +38,62 @@ describe TransactionsController do
   before (:each) do
     @user = FactoryGirl.create(:user)
     sign_in @user
-  end
-
-  # This should return the minimal set of attributes required to create a valid
-  # Transaction. As you add validations to Transaction, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    { "amount" => "1.5" }
-  end
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # TransactionsController. Be sure to keep this updated too.
-  def valid_session
-    {}
+    @account = FactoryGirl.create :account
+    income = FactoryGirl.create :income, account_id: @account.id
+    @transaction = Transaction.last
   end
 
   describe "GET index" do
     it "assigns all transactions as @transactions" do
-      transaction = FactoryGirl.create :transaction, valid_attributes
-      get :index
-      assigns(:transactions).should eq([transaction])
+      get :index, :account_id => @account.id
+      assigns(:transactions).should eq([@transaction])
     end
   end
 
   describe "GET show" do
     it "assigns the requested transaction as @transaction" do
-      transaction = Transaction.create! valid_attributes
-      get :show, {:id => transaction.to_param}
-      assigns(:transaction).should eq(transaction)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new transaction as @transaction" do
-      get :new
-      assigns(:transaction).should be_a_new(Transaction)
+      get :show, {:id => @transaction.to_param, :account_id => @account.id}
+      assigns(:transaction).should eq(@transaction)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested transaction as @transaction" do
-      transaction = Transaction.create! valid_attributes
-      get :edit, {:id => transaction.to_param}
-      assigns(:transaction).should eq(transaction)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Transaction" do
-        expect {
-          post :create, {:transaction => valid_attributes}
-        }.to change(Transaction, :count).by(1)
-      end
-
-      it "assigns a newly created transaction as @transaction" do
-        post :create, {:transaction => valid_attributes}
-        assigns(:transaction).should be_a(Transaction)
-        assigns(:transaction).should be_persisted
-      end
-
-      it "redirects to the created transaction" do
-        post :create, {:transaction => valid_attributes}
-        response.should redirect_to(Transaction.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved transaction as @transaction" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Transaction.any_instance.stub(:save).and_return(false)
-        post :create, {:transaction => { "amount" => "invalid value" }}
-        assigns(:transaction).should be_a_new(Transaction)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Transaction.any_instance.stub(:save).and_return(false)
-        post :create, {:transaction => { "amount" => "invalid value" }}
-        response.should render_template("new")
-      end
+      get :edit, {:id => @transaction.to_param, :account_id => @account.id }
+      assigns(:transaction).should eq(@transaction)
     end
   end
 
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested transaction" do
-        transaction = Transaction.create! valid_attributes
-        # Assuming there are no other transactions in the database, this
-        # specifies that the Transaction created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
         Transaction.any_instance.should_receive(:update_attributes).with({ "amount" => "1.5" })
-        put :update, {:id => transaction.to_param, :transaction => { "amount" => "1.5" }}
+        put :update, {:id => @transaction.to_param, :transaction => { "amount" => "1.5" }, :account_id => @account.id }
       end
 
       it "assigns the requested transaction as @transaction" do
-        transaction = Transaction.create! valid_attributes
-        put :update, {:id => transaction.to_param, :transaction => valid_attributes}
-        assigns(:transaction).should eq(transaction)
+        put :update, {:id => @transaction.to_param, :transaction => valid_attributes, :account_id => @account.id }
+        assigns(:transaction).should eq(@transaction)
       end
 
       it "redirects to the transaction" do
-        transaction = Transaction.create! valid_attributes
-        put :update, {:id => transaction.to_param, :transaction => valid_attributes}
-        response.should redirect_to(transaction)
+        put :update, {:id => @transaction.to_param, :transaction => valid_attributes, :account_id => @account.id }
+        response.should redirect_to(account_transaction_path(@account, @transaction))
       end
     end
 
     describe "with invalid params" do
       it "assigns the transaction as @transaction" do
-        transaction = Transaction.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        put :update, {:id => transaction.to_param, :transaction => { "amount" => "invalid value" }}
-        assigns(:transaction).should eq(transaction)
+        put :update, {:id => @transaction.to_param, :transaction => { "amount" => -1.5 }, :account_id => @account.id }
+        assigns(:transaction).should eq(@transaction)
       end
 
       it "re-renders the 'edit' template" do
-        transaction = Transaction.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        put :update, {:id => transaction.to_param, :transaction => { "amount" => "invalid value" }}
+        put :update, {:id => @transaction.to_param, :transaction => { "amount" => -1.5 }, :account_id => @account.id }
         response.should render_template("edit")
       end
     end
@@ -154,16 +101,14 @@ describe TransactionsController do
 
   describe "DELETE destroy" do
     it "destroys the requested transaction" do
-      transaction = Transaction.create! valid_attributes
       expect {
-        delete :destroy, {:id => transaction.to_param}
+        delete :destroy, {:id => @transaction.to_param, :account_id => @account.id }
       }.to change(Transaction, :count).by(-1)
     end
 
     it "redirects to the transactions list" do
-      transaction = Transaction.create! valid_attributes
-      delete :destroy, {:id => transaction.to_param}
-      response.should redirect_to(transactions_url)
+      delete :destroy, {:id => @transaction.to_param, :account_id => @account.id }
+      response.should redirect_to(account_transactions_path(@account))
     end
   end
 

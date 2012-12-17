@@ -7,6 +7,8 @@
   %b Amount:
   = @account.amount
 
+= link_to 'Transactions', account_transactions_path(@account)
+\|
 = link_to 'Edit', edit_user_account_path(@user, @account)
 \|
 = link_to 'Back', user_accounts_path(@user)

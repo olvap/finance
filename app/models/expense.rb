@@ -1,8 +1,11 @@
 class Expense < Transaction
 
-  def update_account
-    account.amount -= amount
-    account.save
+  private
+  def change_account
+    self.account.amount -= amount
   end
 
+  def update_account
+    self.account.amount += amount_was
+  end
 end

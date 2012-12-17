@@ -1,4 +1,4 @@
-= simple_form_for(@transaction) do |f|
+= simple_form_for([@account, @transaction]) do |f|
   = f.error_notification
 
   .form-inputs
@@ -6,7 +6,6 @@
     = f.input :concept
     = f.association :category
     = f.input :date
-    = f.association :user
 
   .form-actions
     = f.button :submit

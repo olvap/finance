@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20121204235127) do
     t.integer  "category_id"
     t.date     "date"
     t.integer  "user_id"
+    t.integer  "account_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
