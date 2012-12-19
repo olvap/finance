@@ -1,5 +1,4 @@
 Finance::Application.routes.draw do
-  resources :categories
 
   authenticated :user do
     root :to => 'home#index'
@@ -9,6 +8,7 @@ Finance::Application.routes.draw do
 
   resources :users do
     resources :accounts
+    resources :categories
   end
 
   resources :accounts do

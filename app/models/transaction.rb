@@ -12,6 +12,7 @@ class Transaction < ActiveRecord::Base
   after_save :save_account
 
   validates :amount, :numericality => { :greater_than => 0 }
+  #validates :category, :presence => true
 
   private
   def save_account
