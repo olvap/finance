@@ -12,6 +12,7 @@ group :assets do
 end
 gem 'jquery-rails'
 gem 'inherited_resources'
+gem 'newrelic_rpm'
 gem "thin", ">= 1.5.0", :group => :production
 gem "haml", ">= 3.1.7"
 gem "haml-rails", ">= 0.3.5", :group => :development
