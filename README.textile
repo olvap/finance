@@ -1,4 +1,6 @@
 h1. Finance
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/olvap/finance)
+"!https://codeclimate.com/badge.png!":https://codeclimate.com/github/olvap/finance
+
+
 
