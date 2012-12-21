@@ -6,14 +6,14 @@
     %th Amount
     %th
     %th
-    %th
 
   - @accounts.each do |account|
     %tr
-      %td= account.name
+      %td= link_to account.name, user_account_path(@user, account)
       %td= account.amount
-      %td= link_to 'Show', user_account_path(@user, account)
       %td= link_to 'Edit', edit_user_account_path(@user, account)
+      %td= link_to 'Income', new_account_income_path(account)
+      %td= link_to 'Expence', new_account_expence_path(account)
       %td= link_to 'Destroy', user_account_path(@user, account), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
