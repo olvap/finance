@@ -1,4 +1,4 @@
-class ExpencesController <  TransactionsController
+class ExpensesController <  TransactionsController
 
   def index
     @account = Account.find params[:account_id]
@@ -7,6 +7,6 @@ class ExpencesController <  TransactionsController
 
   def new
     @account = Account.find params[:account_id]
-    @transaction = Expence.new
+    @transaction = Expense.new
   end
 end

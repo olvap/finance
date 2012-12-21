@@ -18,13 +18,13 @@
 ## Message expectations are only used when there is no simpler way to specify
 ## that an instance is receiving a specific message.
 #
-#describe ExpencesController do
+#describe expensesController do
 #
 #  before (:each) do
 #    @user = FactoryGirl.create(:user)
 #    sign_in @user
 #    @account = FactoryGirl.create :account
-#    @expence = FactoryGirl.create :expence, account_id: @account.id
+#    @expense = FactoryGirl.create :expense, account_id: @account.id
 #  end
 #
 #  # This should return the minimal set of attributes required to create a valid
@@ -42,17 +42,17 @@
 #  end
 #
 #  describe "GET index" do
-#    it "assigns all expences as @expences" do
+#    it "assigns all expenses as @expenses" do
 #      get :index, :account_id => @account.id
-#      assigns(:transactions).should eq([@expence])
+#      assigns(:transactions).should eq([@expense])
 #    end
 #
 #  end
 #
 #  describe "GET new" do
-#    it "assigns a new expence as @expence" do
+#    it "assigns a new expense as @expense" do
 #      get :new, :account_id => @account.id
-#      assigns(:transaction).should be_a_new(Expence)
+#      assigns(:transaction).should be_a_new(expense)
 #    end
 #  end
 #
@@ -61,34 +61,34 @@
 #    describe "with valid params" do
 #      it "creates a new Account" do
 #        expect {
-#          post :create, {:expence => valid_attributes, :account_id => @account.id}
+#          post :create, {:expense => valid_attributes, :account_id => @account.id}
 #        }.to change(Account, :count).by(1)      e
 #      end
 #
 #      it "assigns a newly created account as @account" do
-#        post :create, {:expence => valid_attributes, :account_id => @account.id}
-#        assigns(:transaction).should be_a(Expence)
+#        post :create, {:expense => valid_attributes, :account_id => @account.id}
+#        assigns(:transaction).should be_a(expense)
 #        assigns(:transactions).should be_persisted
 #      end
 #
 #      it "redirects to the created account" do
-#        post :create, {:expence => valid_attributes, :account_id => @account.id}
-#        response.should redirect_to(user_account_path(@user, Expence.last))
+#        post :create, {:expense => valid_attributes, :account_id => @account.id}
+#        response.should redirect_to(user_account_path(@user, expense.last))
 #      end
 #    end
 #
 #    describe "with invalid params" do
 #      it "assigns a newly created but unsaved account as @account" do
 #        # Trigger the behavior that occurs when invalid params are submitted
-#        Expence.any_instance.stub(:save).and_return(false)
-#        post :create, {:expence => { "amount" => -1.5 }, :account_id => @account.id }
-#        assigns(:transaction).should be_a_new(Expence)
+#        expense.any_instance.stub(:save).and_return(false)
+#        post :create, {:expense => { "amount" => -1.5 }, :account_id => @account.id }
+#        assigns(:transaction).should be_a_new(expense)
 #      end
 #
 #      it "re-renders the 'new' template" do
 #        # Trigger the behavior that occurs when invalid params are submitted
-#        Expence.any_instance.stub(:save).and_return(false)
-#        post :create, {:expence => { "amount" => -1.5, :account_id => @account.id }}
+#        expense.any_instance.stub(:save).and_return(false)
+#        post :create, {:expense => { "amount" => -1.5, :account_id => @account.id }}
 #        response.should render_template("new")
 #      end
 #    end

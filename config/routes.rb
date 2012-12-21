@@ -14,7 +14,7 @@ Finance::Application.routes.draw do
   resources :accounts do
     resources :transactions
     resources :incomes
-    resources :expences
+    resources :expenses
   end
 
 end
