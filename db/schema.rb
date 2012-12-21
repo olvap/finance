@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218235104) do
+ActiveRecord::Schema.define(:version => 20121221230531) do
 
   create_table "accounts", :force => true do |t|
     t.float    "amount"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20121218235104) do
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
   end
+
+  add_index "categories", ["user_id"], :name => "index_categories_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -52,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121218235104) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "transactions", ["account_id"], :name => "index_transactions_on_account_id"
   add_index "transactions", ["category_id"], :name => "index_transactions_on_category_id"
   add_index "transactions", ["user_id"], :name => "index_transactions_on_user_id"
 

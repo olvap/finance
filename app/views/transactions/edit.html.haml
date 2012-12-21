@@ -1,6 +1,6 @@
 %h1 Editing transaction
 
-= render 'form'
+= render 'form', :transaction => @transaction, :account => @account
 
 = link_to 'Show', account_transaction_path(@transaction)
 \|

@@ -1,5 +1,4 @@
 class IncomesController <  TransactionsController
-  #belongs_to :account
 
   def index
     @account = Account.find params[:account_id]

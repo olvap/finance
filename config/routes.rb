@@ -12,9 +12,9 @@ Finance::Application.routes.draw do
   end
 
   resources :accounts do
-    resources :transactions
-    resources :incomes
-    resources :expenses
+    resources :transactions, :except => [ :new, :create ]
+    resources :incomes, :only => [:index, :new, :create ]
+    resources :expenses, :only => [:index, :new, :create ]
   end
 
 end

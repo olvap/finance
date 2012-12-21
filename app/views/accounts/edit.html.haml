@@ -1,6 +1,6 @@
 %h1 Editing account
 
-= render 'form'
+= render 'form', :user => @user, :account => @account
 
 = link_to 'Show', user_account_path(@user, @account)
 \|
