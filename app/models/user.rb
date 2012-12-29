@@ -8,9 +8,14 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :role_ids, :as => :admin
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :amount
 
-  has_many :accounts, :dependent => :destroy
   has_many :transactions
   has_many :categories
+
+  before_save :default_values
+  def default_values
+    self.amount ||= 0
+  end
+
 end

@@ -7,11 +7,7 @@ Finance::Application.routes.draw do
   devise_for :users
 
   resources :users do
-    resources :accounts
     resources :categories
-  end
-
-  resources :accounts do
     resources :transactions, :except => [ :new, :create ]
     resources :incomes, :only => [:index, :new, :create ]
     resources :expenses, :only => [:index, :new, :create ]

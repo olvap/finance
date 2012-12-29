@@ -1,5 +1,5 @@
 %h1 New transaction
 
-= render 'form', :transaction => @transaction, :account => @account
+= render 'form', :transaction => @transaction, :user => @user
 
-= link_to 'Back', account_transactions_path(@account)
+= link_to 'Back', user_transactions_path(@user)

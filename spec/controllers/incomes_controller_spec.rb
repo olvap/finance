@@ -23,12 +23,11 @@ describe IncomesController do
   before (:each) do
     @user = FactoryGirl.create(:user)
     sign_in @user
-    @account = FactoryGirl.create :account
-    @income = FactoryGirl.create :income, account_id: @account.id
+    @income = FactoryGirl.create :income, user_id: @user.id
   end
 
   # This should return the minimal set of attributes required to create a valid
-  # Account. As you add validations to Account, be sure to
+  # User. As you add validations to User, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     { "amount" => "1.5" }
@@ -36,14 +35,14 @@ describe IncomesController do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # AccountsController. Be sure to keep this updated too.
+  # UsersController. Be sure to keep this updated too.
   def valid_session
     {}
   end
 
   describe "GET index" do
     it "assigns all incomes as @incomes" do
-      get :index, :account_id => @account.id
+      get :index, :user_id => @user.id
       assigns(:transactions).should eq([@income])
     end
 
@@ -51,7 +50,7 @@ describe IncomesController do
 
   describe "GET new" do
     it "assigns a new income as @income" do
-      get :new, :account_id => @account.id
+      get :new, :user_id => @user.id
       assigns(:transaction).should be_a_new(Income)
     end
   end
@@ -61,19 +60,19 @@ describe IncomesController do
     describe "with valid params" do
       it "creates a new Income" do
         expect {
-          post :create, {:income => valid_attributes, :account_id => @account.id}
+          post :create, {:income => valid_attributes, :user_id => @user.id}
         }.to change(Income, :count).by(1)
       end
 
       it "assigns a newly created income as @income" do
-        post :create, {:income => valid_attributes, :account_id => @account.id}
+        post :create, {:income => valid_attributes, :user_id => @user.id}
         assigns(:transaction).should be_a(Income)
         assigns(:transaction).should be_persisted
       end
 
       it "redirects to the transactions" do
-        post :create, {:income => valid_attributes, :account_id => @account.id}
-        response.should redirect_to(account_transactions_path(@account))
+        post :create, {:income => valid_attributes, :user_id => @user.id}
+        response.should redirect_to(user_transactions_path(@user))
       end
     end
 
@@ -81,14 +80,14 @@ describe IncomesController do
       it "assigns a newly created but unsaved income as @income" do
         # Trigger the behavior that occurs when invalid params are submitted
         Income.any_instance.stub(:save).and_return(false)
-        post :create, {:income => { "amount" => "-1.5" }, :account_id => @account.id }
+        post :create, {:income => { "amount" => "-1.5" }, :user_id => @user.id }
         assigns(:transaction).should be_a_new(Income)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Income.any_instance.stub(:save).and_return(false)
-        post :create, {:income => { "amount" => "-1.5"}, :account_id => @account.id }
+        post :create, {:income => { "amount" => "-1.5"}, :user_id => @user.id }
         response.should render_template("new")
       end
     end

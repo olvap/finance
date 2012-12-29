@@ -1,4 +1,14 @@
 %h3 Home
-- @users.each do |user|
-  %p
-    User: #{link_to user.name, user}
+= current_user.name
+
+%br
+Amount:
+%b=current_user.amount
+
+%br
+=link_to "New income", new_user_income_path(current_user)
+%br
+=link_to "New expense", new_user_expense_path(current_user)
+
+%br
+=link_to "Categories", user_categories_path(current_user)

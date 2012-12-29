@@ -11,17 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221230531) do
-
-  create_table "accounts", :force => true do |t|
-    t.float    "amount"
-    t.integer  "user_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "accounts", ["user_id"], :name => "index_accounts_on_user_id"
+ActiveRecord::Schema.define(:version => 20121229002507) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -72,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20121221230531) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.float    "amount"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

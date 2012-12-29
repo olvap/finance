@@ -38,28 +38,27 @@ describe TransactionsController do
   before (:each) do
     @user = FactoryGirl.create(:user)
     sign_in @user
-    @account = FactoryGirl.create :account
-    income = FactoryGirl.create :income, account_id: @account.id
+    income = FactoryGirl.create :income, user_id: @user.id
     @transaction = Transaction.last
   end
 
   describe "GET index" do
     it "assigns all transactions as @transactions" do
-      get :index, :account_id => @account.id
+      get :index, :user_id => @user.id
       assigns(:transactions).should eq([@transaction])
     end
   end
 
   describe "GET show" do
     it "assigns the requested transaction as @transaction" do
-      get :show, {:id => @transaction.to_param, :account_id => @account.id}
+      get :show, {:id => @transaction.to_param, :user_id => @user.id}
       assigns(:transaction).should eq(@transaction)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested transaction as @transaction" do
-      get :edit, {:id => @transaction.to_param, :account_id => @account.id }
+      get :edit, {:id => @transaction.to_param, :user_id => @user.id }
       assigns(:transaction).should eq(@transaction)
     end
   end
@@ -68,17 +67,17 @@ describe TransactionsController do
     describe "with valid params" do
       it "updates the requested transaction" do
         Transaction.any_instance.should_receive(:update_attributes).with({ "amount" => "1.5" })
-        put :update, {:id => @transaction.to_param, :transaction => { "amount" => "1.5" }, :account_id => @account.id }
+        put :update, {:id => @transaction.to_param, :transaction => { "amount" => "1.5" }, :user_id => @user.id }
       end
 
       it "assigns the requested transaction as @transaction" do
-        put :update, {:id => @transaction.to_param, :transaction => valid_attributes, :account_id => @account.id }
+        put :update, {:id => @transaction.to_param, :transaction => valid_attributes, :user_id => @user.id }
         assigns(:transaction).should eq(@transaction)
       end
 
       it "redirects to the transaction" do
-        put :update, {:id => @transaction.to_param, :transaction => valid_attributes, :account_id => @account.id }
-        response.should redirect_to(account_transaction_path(@account, @transaction))
+        put :update, {:id => @transaction.to_param, :transaction => valid_attributes, :user_id => @user.id }
+        response.should redirect_to(user_transaction_path(@user, @transaction))
       end
     end
 
@@ -86,14 +85,14 @@ describe TransactionsController do
       it "assigns the transaction as @transaction" do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        put :update, {:id => @transaction.to_param, :transaction => { "amount" => -1.5 }, :account_id => @account.id }
+        put :update, {:id => @transaction.to_param, :transaction => { "amount" => -1.5 }, :user_id => @user.id }
         assigns(:transaction).should eq(@transaction)
       end
 
       it "re-renders the 'edit' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Transaction.any_instance.stub(:save).and_return(false)
-        put :update, {:id => @transaction.to_param, :transaction => { "amount" => -1.5 }, :account_id => @account.id }
+        put :update, {:id => @transaction.to_param, :transaction => { "amount" => -1.5 }, :user_id => @user.id }
         response.should render_template("edit")
       end
     end
@@ -102,13 +101,13 @@ describe TransactionsController do
   describe "DELETE destroy" do
     it "destroys the requested transaction" do
       expect {
-        delete :destroy, {:id => @transaction.to_param, :account_id => @account.id }
+        delete :destroy, {:id => @transaction.to_param, :user_id => @user.id }
       }.to change(Transaction, :count).by(-1)
     end
 
     it "redirects to the transactions list" do
-      delete :destroy, {:id => @transaction.to_param, :account_id => @account.id }
-      response.should redirect_to(account_transactions_path(@account))
+      delete :destroy, {:id => @transaction.to_param, :user_id => @user.id }
+      response.should redirect_to(user_transactions_path(@user))
     end
   end
 
