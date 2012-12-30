@@ -1,17 +1,18 @@
 %p#notice= notice
 
 %p
+  %b Date:
+  = @transaction.date
+%p
+  %b Category:
+  = @transaction.category
+%p
   %b Amount:
   = @transaction.amount
 %p
   %b Concept:
   = @transaction.concept
-%p
-  %b Category:
-  = @transaction.category
-%p
-  %b Date:
-  = @transaction.date
+
 
 = link_to 'Edit', edit_user_transaction_path(@user, @transaction)
 \|

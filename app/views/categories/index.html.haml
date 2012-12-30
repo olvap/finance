@@ -1,19 +1,16 @@
 %h1 Listing categories
 
-%table
+%table.table.table-striped
   %tr
     %th Name
-    %th
-    %th
-    %th
+    %th Actions
 
   - @categories.each do |category|
     %tr
       %td= category.name
-      %td= link_to 'Show', user_category_path(user, category)
-      %td= link_to 'Edit', edit_user_category_path(user, category)
-      %td= link_to 'Destroy', user_category_path(user, category), method: :delete, data: { confirm: 'Are you sure?' }
+      %td
+        = show_button(user_category_path(category.user, category)) + edit_button(edit_user_category_path(category.user, category)) + destroy_button(user_category_path(category.user, category))
 
 %br
 
-= link_to 'New Category', new_user_category_path(@user)
+= new_button new_user_category_path(@user)

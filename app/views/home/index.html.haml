@@ -5,9 +5,9 @@
     %br
     %b="$ #{current_user.amount}"
     %br
-    = link_to new_user_income_path(current_user), class: 'btn btn-success' do
-      -content_tag(:i, "", class: 'icon-plus-sign icon-white')
-    = link_to new_user_expense_path(current_user), class: 'btn btn-danger' do
-      -content_tag(:i, "", class: 'icon-minus-sign icon-white')
+    = income_button current_user
+    = expense_button current_user
 
 =render partial: "transactions/transactions", locals: { transactions: @transactions, user: current_user }
+
+= link_to "categories", user_categories_path(current_user), class: 'btn btn-mini btn-primary span1'

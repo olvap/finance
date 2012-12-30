@@ -3,5 +3,5 @@
 =render partial: "transactions", locals: {transactions: @transactions, user: @user}
 %br
 
-= link_to 'New Income', new_user_income_path(@user)
-= link_to 'New Expense', new_user_expense_path(@user)
+= income_button @user
+= expense_button @user

@@ -13,4 +13,4 @@
       %td= transaction.amount
       %td= transaction.concept
       %td
-        = link_to("Edit", edit_user_transaction_path(user, transaction), class: 'btn btn-mini') + link_to('Destroy', user_transaction_path(user, transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini')
+        = show_button(user_transaction_path(user, transaction)) + edit_button(edit_user_transaction_path(user, transaction)) + destroy_button(user_transaction_path(user, transaction))
