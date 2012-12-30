@@ -6,6 +6,8 @@
     %b="$ #{current_user.amount}"
     %br
     = link_to new_user_income_path(current_user), class: 'btn btn-success' do
-      -content_tag(:i, "", class: 'icon-plus-sign')
+      -content_tag(:i, "", class: 'icon-plus-sign icon-white')
     = link_to new_user_expense_path(current_user), class: 'btn btn-danger' do
-      -content_tag(:i, "", class: 'icon-minus-sign')
+      -content_tag(:i, "", class: 'icon-minus-sign icon-white')
+
+=render partial: "transactions/transactions", locals: { transactions: @transactions, user: current_user }

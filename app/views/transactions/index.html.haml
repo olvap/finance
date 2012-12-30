@@ -1,25 +1,6 @@
 %h1 Listing transactions
 
-%table
-  %tr
-    %th Amount
-    %th Concept
-    %th Category
-    %th Date
-    %th
-    %th
-    %th
-
-  - @transactions.each do |transaction|
-    %tr
-      %td= transaction.amount
-      %td= transaction.concept
-      %td= transaction.category
-      %td= transaction.date
-      -#%td= link_to 'Show', account_transaction_path(@account, @transaction)
-      %td= link_to 'Edit', edit_user_transaction_path(@user, transaction)
-      -#%td= link_to 'Destroy', account_transaction_path(@account, @transaction), method: :delete, data: { confirm: 'Are you sure?' }
-
+=render partial: "transactions", locals: {transactions: @transactions, user: @user}
 %br
 
 = link_to 'New Income', new_user_income_path(@user)

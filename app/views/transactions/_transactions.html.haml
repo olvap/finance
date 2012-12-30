@@ -1,0 +1,16 @@
+%table.table.table-striped
+  %tr
+    %th Date
+    %th Category
+    %th Amount
+    %th Concept
+    %th Actions
+
+  - transactions.each do |transaction|
+    %tr
+      %td= transaction.date
+      %td= link_to transaction.category, user_category_path(user, transaction.category)
+      %td= transaction.amount
+      %td= transaction.concept
+      %td
+        = link_to("Edit", edit_user_transaction_path(user, transaction), class: 'btn btn-mini') + link_to('Destroy', user_transaction_path(user, transaction), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-mini')
