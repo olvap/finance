@@ -12,6 +12,8 @@ class Transaction < ActiveRecord::Base
   validates :amount, :numericality => { :greater_than => 0 }
   validates :category, :presence => true
 
+  default_scope order("date desc, created_at desc")
+
   private
 
   def default_date
